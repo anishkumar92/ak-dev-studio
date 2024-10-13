@@ -7,9 +7,9 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:ak-dev-studio": "node dist/ak-dev-studio/server/main.js",
-    "build:ssr": "ng build && ng run ak-dev-studio:server",
     "dev:ssr": "ng run ak-dev-studio:serve-ssr",
+    "serve:ssr": "node dist/ak-dev-studio/server/main.js",
+    "build:ssr": "ng build && ng run ak-dev-studio:server",
     "prerender": "ng run ak-dev-studio:prerender"
   },
   "private": true,

@@ -1,15 +1,19 @@
 {
-    "version": 2,
-    "builds": [
-      {
-        "src": "dist/ak-dev-studio/server/main.js",
-        "use": "@vercel/node"
+  "version": 2,
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/node",
+      "config": {
+        "buildCommand": "npm run build:ssr",
+        "outputDirectory": "dist/ak-dev-studio/browser"
       }
-    ],
-    "routes": [
-      {
-        "src": "/(.*)",
-        "dest": "dist/ak-dev-studio/server/main.js"
-      }
-    ]
-  }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "dist/ak-dev-studio/server/main.js"
+    }
+  ]
+}
