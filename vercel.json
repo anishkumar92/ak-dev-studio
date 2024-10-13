@@ -3,11 +3,7 @@
   "builds": [
     {
       "src": "package.json",
-      "use": "@vercel/node",
-      "config": {
-        "buildCommand": "npm run build:ssr",
-        "outputDirectory": "dist/ak-dev-studio/browser"
-      }
+      "use": "@vercel/node"
     }
   ],
   "routes": [
