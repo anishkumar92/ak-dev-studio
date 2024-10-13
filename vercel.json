@@ -1,4 +1,16 @@
 {
   "version": 2,
-  "builds": [{ "src": "package.json", "use": "@vercel/node" }]
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/node",
+      "config": { "buildCommand": "npm run build:ssr" }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "dist/ak-dev-studio/server/main.js"
+    }
+  ]
 }

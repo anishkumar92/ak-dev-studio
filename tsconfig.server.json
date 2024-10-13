@@ -2,10 +2,18 @@
     "extends": "./tsconfig.app.json",
     "compilerOptions": {
       "outDir": "./out-tsc/server",
-      "module": "commonjs",
-      "types": ["node"]
+      "target": "es2019",
+      "types": [
+        "node"
+      ]
     },
-    "files": ["src/main.server.ts", "server.ts"],
+    "files": [
+      "src/main.server.ts",
+      "server.ts"
+    ],
+    "include": [
+      "src/app/app.config.server.ts"
+    ],
     "angularCompilerOptions": {
       "entryModule": "./src/app/app.server.module#AppServerModule"
     }
