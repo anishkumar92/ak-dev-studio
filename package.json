@@ -1,7 +1,7 @@
 {
   "name": "ak-dev-studio",
   "version": "0.0.0",
-  "scripts": {
+  "scripts":  {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
@@ -9,7 +9,7 @@
     "test": "ng test",
     "dev:ssr": "ng run ak-dev-studio:serve-ssr",
     "serve:ssr": "node dist/ak-dev-studio/server/main.js",
-    "build:ssr": "ng build && ng run ak-dev-studio:server",
+    "build:ssr": "ng build ak-dev-studio && ng run ak-dev-studio:server",
     "prerender": "ng run ak-dev-studio:prerender",
     "vercel-build": "npm run build:ssr"
   },
