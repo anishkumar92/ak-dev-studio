@@ -1,5 +1,5 @@
-import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, OnInit, OnDestroy, HostListener, PLATFORM_ID, Inject } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 
 interface NavigationItem {
@@ -80,10 +80,10 @@ interface QuickLink {
 }
 
 @Component({
-    selector: 'app-landing-page',
-    standalone: true,
-    imports: [CommonModule],
-    template: `
+  selector: 'app-landing-page',
+  standalone: true,
+  imports: [CommonModule],
+  template: `
     <!-- Navigation Component -->
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top navbar-custom">
       <div class="container">
@@ -113,18 +113,18 @@ interface QuickLink {
       <div class="container">
         <div class="row align-items-center min-vh-100">
           <div class="col-lg-8 hero-content text-white">
-            <div class="badge-custom" [@fadeInUp]>
+            <div class="badge-custom animate-fade-up">
               <i class="bi bi-star-fill me-2"></i>{{ profileData.experience }}+ Years Angular Expert
             </div>
-            <h1 class="hero-title text-white" [@fadeInUp]>
+            <h1 class="hero-title text-white animate-fade-up">
               {{ profileData.greeting }}<br>
               <span class="text-warning">{{ profileData.name }}</span><br>
               <span class="text-info">{{ profileData.title }}</span>
             </h1>
-            <p class="hero-subtitle text-white" [@fadeInUp]>
+            <p class="hero-subtitle text-white animate-fade-up">
               {{ profileData.description }}
             </p>
-            <div class="d-flex flex-wrap gap-3" [@fadeInUp]>
+            <div class="d-flex flex-wrap gap-3 animate-fade-up">
               <a [href]="'#contact'" class="btn btn-warning btn-custom" (click)="scrollToSection($event, '#contact')">
                 <i class="bi bi-envelope me-2"></i>Get In Touch
               </a>
@@ -147,7 +147,7 @@ interface QuickLink {
             </div>
           </div>
           <div class="col-lg-4 text-center">
-            <div class="position-relative" [@fadeInRight]>
+            <div class="position-relative animate-fade-right">
               <div class="bg-white rounded-circle p-4 shadow-lg d-inline-block hero-avatar">
                 <i class="bi bi-person-circle text-primary" style="font-size: 8rem;"></i>
               </div>
@@ -166,13 +166,13 @@ interface QuickLink {
       <div class="container">
         <div class="row">
           <div class="col-lg-12 text-center mb-5">
-            <h2 class="section-title text-dark" [@fadeInUp]>About Me</h2>
+            <h2 class="section-title text-dark animate-fade-up">About Me</h2>
             <p class="lead text-secondary">{{ aboutData.subtitle }}</p>
           </div>
         </div>
         <div class="row align-items-center">
           <div class="col-lg-6 mb-4">
-            <div class="card card-custom h-100" [@fadeInLeft]>
+            <div class="card card-custom h-100 animate-fade-left">
               <div class="card-body p-4">
                 <div class="card-icon bg-primary mb-3">
                   <i class="bi bi-person-badge"></i>
@@ -200,7 +200,7 @@ interface QuickLink {
             </div>
           </div>
           <div class="col-lg-6 mb-4">
-            <div class="card card-custom h-100" [@fadeInRight]>
+            <div class="card card-custom h-100 animate-fade-right">
               <div class="card-body p-4">
                 <div class="card-icon bg-success mb-3">
                   <i class="bi bi-geo-alt"></i>
@@ -238,16 +238,15 @@ interface QuickLink {
       <div class="container">
         <div class="row">
           <div class="col-lg-12 text-center mb-5">
-            <h2 class="section-title text-dark" [@fadeInUp]>Work Experience</h2>
+            <h2 class="section-title text-dark animate-fade-up">Work Experience</h2>
             <p class="lead text-secondary">Journey through leading organizations</p>
           </div>
         </div>
         <div class="row">
           <div class="col-lg-12">
             <div class="timeline">
-              <div class="timeline-item" 
-                   *ngFor="let experience of experienceData; let i = index"
-                   [@fadeInUp]="{ value: '', params: { delay: i * 200 + 'ms' } }">
+              <div class="timeline-item animate-fade-up" 
+                   *ngFor="let experience of experienceData; let i = index">
                 <div class="timeline-content">
                   <div class="d-flex justify-content-between align-items-start mb-3">
                     <div>
@@ -282,15 +281,14 @@ interface QuickLink {
       <div class="container">
         <div class="row">
           <div class="col-lg-12 text-center mb-5">
-            <h2 class="section-title text-dark" [@fadeInUp]>Technical Skills</h2>
+            <h2 class="section-title text-dark animate-fade-up">Technical Skills</h2>
             <p class="lead text-secondary">Expertise across modern web technologies</p>
           </div>
         </div>
         <div class="row g-4">
           <div class="col-lg-3 col-md-6" 
-               *ngFor="let skill of skillsData; let i = index"
-               [@fadeInUp]="{ value: '', params: { delay: i * 100 + 'ms' } }">
-            <div class="skill-item">
+               *ngFor="let skill of skillsData; let i = index">
+            <div class="skill-item animate-fade-up" [style.animation-delay]="(i * 100) + 'ms'">
               <div [class]="'skill-icon ' + skill.bgClass">{{ skill.icon }}</div>
               <h5 class="text-dark">{{ skill.name }}</h5>
               <p class="text-secondary small">{{ skill.description }}</p>
@@ -314,15 +312,14 @@ interface QuickLink {
       <div class="container">
         <div class="row">
           <div class="col-lg-12 text-center mb-5">
-            <h2 class="section-title text-dark" [@fadeInUp]>Featured Projects</h2>
+            <h2 class="section-title text-dark animate-fade-up">Featured Projects</h2>
             <p class="lead text-secondary">Personal projects showcasing my expertise</p>
           </div>
         </div>
         <div class="row g-4">
           <div class="col-lg-6 col-md-6" 
-               *ngFor="let project of projectsData; let i = index"
-               [@fadeInUp]="{ value: '', params: { delay: i * 200 + 'ms' } }">
-            <div class="card project-card">
+               *ngFor="let project of projectsData; let i = index">
+            <div class="card project-card animate-fade-up" [style.animation-delay]="(i * 200) + 'ms'">
               <div class="project-image" [style.background]="project.gradient">
                 <i [class]="project.icon"></i>
               </div>
@@ -358,13 +355,13 @@ interface QuickLink {
       <div class="container">
         <div class="row">
           <div class="col-lg-12 text-center mb-5">
-            <h2 class="section-title text-dark" [@fadeInUp]>GitHub Statistics</h2>
+            <h2 class="section-title text-dark animate-fade-up">GitHub Statistics</h2>
             <p class="lead text-secondary">My coding journey in numbers</p>
           </div>
         </div>
         <div class="row g-4">
-          <div class="col-lg-4 col-md-6" [@fadeInUp]>
-            <div class="card card-custom text-center">
+          <div class="col-lg-4 col-md-6">
+            <div class="card card-custom text-center animate-fade-up">
               <div class="card-body">
                 <h5 class="text-dark">Top Languages</h5>
                 <img [src]="'https://github-readme-stats.vercel.app/api/top-langs?username=' + profileData.githubUsername + '&show_icons=true&locale=en&layout=compact&theme=light'" 
@@ -372,8 +369,8 @@ interface QuickLink {
               </div>
             </div>
           </div>
-          <div class="col-lg-4 col-md-6" [@fadeInUp]>
-            <div class="card card-custom text-center">
+          <div class="col-lg-4 col-md-6">
+            <div class="card card-custom text-center animate-fade-up">
               <div class="card-body">
                 <h5 class="text-dark">GitHub Stats</h5>
                 <img [src]="'https://github-readme-stats.vercel.app/api?username=' + profileData.githubUsername + '&show_icons=true&locale=en&theme=light'" 
@@ -381,8 +378,8 @@ interface QuickLink {
               </div>
             </div>
           </div>
-          <div class="col-lg-4 col-md-12" [@fadeInUp]>
-            <div class="card card-custom text-center">
+          <div class="col-lg-4 col-md-12">
+            <div class="card card-custom text-center animate-fade-up">
               <div class="card-body">
                 <h5 class="text-dark">GitHub Streak</h5>
                 <img [src]="'https://github-readme-streak-stats.herokuapp.com/?user=' + profileData.githubUsername + '&theme=light'" 
@@ -399,15 +396,14 @@ interface QuickLink {
       <div class="container">
         <div class="row">
           <div class="col-lg-12 text-center mb-5">
-            <h2 class="section-title text-white" [@fadeInUp]>Let's Work Together</h2>
+            <h2 class="section-title text-white animate-fade-up">Let's Work Together</h2>
             <p class="lead text-white">Ready to start your next project? Let's discuss how I can help.</p>
           </div>
         </div>
         <div class="row g-4">
           <div class="col-lg-3 col-md-6" 
-               *ngFor="let contact of contactMethods; let i = index"
-               [@fadeInUp]="{ value: '', params: { delay: i * 100 + 'ms' } }">
-            <div class="contact-item">
+               *ngFor="let contact of contactMethods; let i = index">
+            <div class="contact-item animate-fade-up" [style.animation-delay]="(i * 100) + 'ms'">
               <div class="contact-icon">
                 <i [class]="contact.icon"></i>
               </div>
@@ -464,46 +460,37 @@ interface QuickLink {
     <!-- Scroll to Top Button -->
     <button class="btn btn-primary btn-scroll-top" 
             *ngIf="showScrollButton" 
-            (click)="scrollToTop()"
-            [@fadeInOut]>
+            (click)="scrollToTop()">
       <i class="bi bi-arrow-up"></i>
     </button>
   `,
-    styleUrls: ['./landing-page.component.scss'],
-    animations: [
-        trigger('fadeInUp', [
-            transition(':enter', [
-                style({ opacity: 0, transform: 'translateY(30px)' }),
-                animate('{{delay}} 600ms ease-out', style({ opacity: 1, transform: 'translateY(0)' }))
-            ])
-        ]),
-        trigger('fadeInLeft', [
-            transition(':enter', [
-                style({ opacity: 0, transform: 'translateX(-30px)' }),
-                animate('600ms ease-out', style({ opacity: 1, transform: 'translateX(0)' }))
-            ])
-        ]),
-        trigger('fadeInRight', [
-            transition(':enter', [
-                style({ opacity: 0, transform: 'translateX(30px)' }),
-                animate('600ms ease-out', style({ opacity: 1, transform: 'translateX(0)' }))
-            ])
-        ]),
-        trigger('fadeInOut', [
-            transition(':enter', [
-                style({ opacity: 0, transform: 'scale(0.8)' }),
-                animate('300ms ease-in', style({ opacity: 1, transform: 'scale(1)' }))
-            ]),
-            transition(':leave', [
-                animate('300ms ease-out', style({ opacity: 0, transform: 'scale(0.8)' }))
-            ])
-        ])
-    ]
+  styleUrls: ['./landing-page.component.scss'],
+  animations: [
+    trigger('fadeInUp', [
+      transition(':enter', [
+        style({ opacity: 0, transform: 'translateY(30px)' }),
+        animate('600ms ease-out', style({ opacity: 1, transform: 'translateY(0)' }))
+      ])
+    ]),
+    trigger('fadeInLeft', [
+      transition(':enter', [
+        style({ opacity: 0, transform: 'translateX(-30px)' }),
+        animate('600ms ease-out', style({ opacity: 1, transform: 'translateX(0)' }))
+      ])
+    ]),
+    trigger('fadeInRight', [
+      transition(':enter', [
+        style({ opacity: 0, transform: 'translateX(30px)' }),
+        animate('600ms ease-out', style({ opacity: 1, transform: 'translateX(0)' }))
+      ])
+    ])
+  ]
 })
 export class LandingPageComponent implements OnInit, OnDestroy {
   // Component State
   isMenuOpen = false;
   showScrollButton = false;
+  private isBrowser = false;
 
   // Navigation Data
   navigationItems: NavigationItem[] = [
@@ -828,11 +815,15 @@ export class LandingPageComponent implements OnInit, OnDestroy {
     { label: 'Contact', url: '#contact' }
   ];
 
-  constructor() { }
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {
+    this.isBrowser = isPlatformBrowser(this.platformId);
+  }
 
   ngOnInit(): void {
-    this.initializeScrollListener();
-    this.initializeNavigation();
+    if (this.isBrowser) {
+      this.initializeScrollListener();
+      this.initializeNavigation();
+    }
   }
 
   ngOnDestroy(): void {
@@ -841,6 +832,8 @@ export class LandingPageComponent implements OnInit, OnDestroy {
 
   @HostListener('window:scroll', ['$event'])
   onWindowScroll(): void {
+    if (!this.isBrowser) return;
+    
     this.showScrollButton = window.pageYOffset > 300;
     this.updateActiveNavigation();
     this.updateNavbarBackground();
@@ -858,6 +851,8 @@ export class LandingPageComponent implements OnInit, OnDestroy {
    */
   scrollToSection(event: Event, target: string): void {
     event.preventDefault();
+    
+    if (!this.isBrowser) return;
     
     const element = document.querySelector(target);
     if (element) {
@@ -878,6 +873,8 @@ export class LandingPageComponent implements OnInit, OnDestroy {
    * Scroll to top of page
    */
   scrollToTop(): void {
+    if (!this.isBrowser) return;
+    
     window.scrollTo({
       top: 0,
       behavior: 'smooth'
@@ -885,9 +882,13 @@ export class LandingPageComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Initialize scroll listener for animations
+   * Initialize scroll listener for animations - FIXED VERSION
    */
   private initializeScrollListener(): void {
+    if (!this.isBrowser || typeof IntersectionObserver === 'undefined') {
+      return;
+    }
+
     const observerOptions = {
       threshold: 0.1,
       rootMargin: '0px 0px -50px 0px'
@@ -903,7 +904,7 @@ export class LandingPageComponent implements OnInit, OnDestroy {
 
     // Observe elements for animation
     setTimeout(() => {
-      const elementsToObserve = document.querySelectorAll('.fade-in');
+      const elementsToObserve = document.querySelectorAll('.fade-in, .animate-fade-up, .animate-fade-left, .animate-fade-right');
       elementsToObserve.forEach(el => observer.observe(el));
     }, 100);
   }
@@ -912,6 +913,8 @@ export class LandingPageComponent implements OnInit, OnDestroy {
    * Initialize navigation functionality
    */
   private initializeNavigation(): void {
+    if (!this.isBrowser) return;
+    
     // Set initial active navigation item
     this.updateActiveNavigation();
   }
@@ -920,6 +923,8 @@ export class LandingPageComponent implements OnInit, OnDestroy {
    * Update active navigation item based on scroll position
    */
   private updateActiveNavigation(): void {
+    if (!this.isBrowser) return;
+    
     const sections = document.querySelectorAll('section[id]');
     const navLinks = document.querySelectorAll('.nav-link');
     let current = '';
@@ -947,6 +952,8 @@ export class LandingPageComponent implements OnInit, OnDestroy {
    * Update navbar background on scroll
    */
   private updateNavbarBackground(): void {
+    if (!this.isBrowser) return;
+    
     const navbar = document.querySelector('.navbar-custom') as HTMLElement;
     if (navbar) {
       if (window.pageYOffset > 50) {

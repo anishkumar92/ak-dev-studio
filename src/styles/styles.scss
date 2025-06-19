@@ -1,6 +1,103 @@
-$primary-color: #000000; // Black from AK logo
-$secondary-color: #0000FF; // Blue from <dev> text
-$accent-color: #000080; // Navy blue from "Smart Websites" text
+/* Global Styles - Add this to src/styles.scss */
 
-// Import Bootstrap
-@import "bootstrap/scss/bootstrap";
+// Import Bootstrap properly (fixes deprecation warning)
+@import 'bootstrap/scss/bootstrap';
+
+// Global CSS Reset and Base Styles
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  line-height: 1.6;
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+// Force proper contrast for all text elements
+body {
+  color: #212529 !important;
+  background-color: #ffffff !important;
+}
+
+// Ensure headings are always visible
+h1, h2, h3, h4, h5, h6 {
+  color: #212529 !important;
+  font-weight: 600;
+}
+
+// Ensure paragraphs are visible
+p {
+  color: #6c757d !important;
+}
+
+// Fix any invisible text issues
+.text-dark {
+  color: #212529 !important;
+}
+
+.text-light {
+  color: rgba(255, 255, 255, 0.8) !important;
+}
+
+.text-white {
+  color: #ffffff !important;
+}
+
+.text-secondary {
+  color: #6c757d !important;
+}
+
+// Ensure proper backgrounds
+.bg-light {
+  background-color: #f8f9fa !important;
+}
+
+.bg-white {
+  background-color: #ffffff !important;
+}
+
+.bg-dark {
+  background-color: #212529 !important;
+}
+
+// Remove any conflicting styles
+.container, .container-fluid {
+  color: inherit;
+}
+
+// Ensure Bootstrap components have proper contrast
+.card {
+  background-color: #ffffff !important;
+  color: #212529 !important;
+}
+
+.btn {
+  font-weight: 600;
+}
+
+// Fix navigation if it's invisible
+.navbar {
+  background-color: rgba(13, 27, 42, 0.95) !important;
+}
+
+.navbar .navbar-brand {
+  color: #ffffff !important;
+}
+
+.navbar .nav-link {
+  color: #ffffff !important;
+}
+
+// Print styles
+@media print {
+  * {
+    color: #000000 !important;
+    background: #ffffff !important;
+  }
+}
