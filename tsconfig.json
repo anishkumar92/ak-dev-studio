@@ -11,7 +11,6 @@
     "noFallthroughCasesInSwitch": true,
     "sourceMap": true,
     "declaration": false,
-    "downlevelIteration": true,
     "experimentalDecorators": true,
     "moduleResolution": "node",
     "importHelpers": true,
@@ -22,7 +21,6 @@
       "ES2022",
       "dom"
     ],
-    "allowSyntheticDefaultImports": true,
     "esModuleInterop": true
   },
   "angularCompilerOptions": {

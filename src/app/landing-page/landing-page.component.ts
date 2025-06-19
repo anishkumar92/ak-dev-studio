@@ -80,10 +80,10 @@ interface QuickLink {
 }
 
 @Component({
-  selector: 'app-landing-page',
-  standalone: true,
-  imports: [CommonModule],
-  template: `
+    selector: 'app-landing-page',
+    standalone: true,
+    imports: [CommonModule],
+    template: `
     <!-- Navigation Component -->
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top navbar-custom">
       <div class="container">
@@ -469,36 +469,36 @@ interface QuickLink {
       <i class="bi bi-arrow-up"></i>
     </button>
   `,
-  styleUrls: ['./landing-page.component.scss'],
-  animations: [
-    trigger('fadeInUp', [
-      transition(':enter', [
-        style({ opacity: 0, transform: 'translateY(30px)' }),
-        animate('{{delay}} 600ms ease-out', style({ opacity: 1, transform: 'translateY(0)' }))
-      ])
-    ]),
-    trigger('fadeInLeft', [
-      transition(':enter', [
-        style({ opacity: 0, transform: 'translateX(-30px)' }),
-        animate('600ms ease-out', style({ opacity: 1, transform: 'translateX(0)' }))
-      ])
-    ]),
-    trigger('fadeInRight', [
-      transition(':enter', [
-        style({ opacity: 0, transform: 'translateX(30px)' }),
-        animate('600ms ease-out', style({ opacity: 1, transform: 'translateX(0)' }))
-      ])
-    ]),
-    trigger('fadeInOut', [
-      transition(':enter', [
-        style({ opacity: 0, transform: 'scale(0.8)' }),
-        animate('300ms ease-in', style({ opacity: 1, transform: 'scale(1)' }))
-      ]),
-      transition(':leave', [
-        animate('300ms ease-out', style({ opacity: 0, transform: 'scale(0.8)' }))
-      ])
-    ])
-  ]
+    styleUrls: ['./landing-page.component.scss'],
+    animations: [
+        trigger('fadeInUp', [
+            transition(':enter', [
+                style({ opacity: 0, transform: 'translateY(30px)' }),
+                animate('{{delay}} 600ms ease-out', style({ opacity: 1, transform: 'translateY(0)' }))
+            ])
+        ]),
+        trigger('fadeInLeft', [
+            transition(':enter', [
+                style({ opacity: 0, transform: 'translateX(-30px)' }),
+                animate('600ms ease-out', style({ opacity: 1, transform: 'translateX(0)' }))
+            ])
+        ]),
+        trigger('fadeInRight', [
+            transition(':enter', [
+                style({ opacity: 0, transform: 'translateX(30px)' }),
+                animate('600ms ease-out', style({ opacity: 1, transform: 'translateX(0)' }))
+            ])
+        ]),
+        trigger('fadeInOut', [
+            transition(':enter', [
+                style({ opacity: 0, transform: 'scale(0.8)' }),
+                animate('300ms ease-in', style({ opacity: 1, transform: 'scale(1)' }))
+            ]),
+            transition(':leave', [
+                animate('300ms ease-out', style({ opacity: 0, transform: 'scale(0.8)' }))
+            ])
+        ])
+    ]
 })
 export class LandingPageComponent implements OnInit, OnDestroy {
   // Component State
