@@ -1,0 +1,383 @@
+<!-- Navigation Component -->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top navbar-custom">
+  <div class="container">
+    <a class="navbar-brand" href="#home">
+      AK<span class="font-mono text-primary">&lt;/dev&gt;</span>Studio
+    </a>
+    
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
+            [attr.aria-expanded]="isMenuOpen" (click)="toggleMobileMenu()">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    
+    <div class="collapse navbar-collapse" id="navbarNav" [class.show]="isMenuOpen">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item" *ngFor="let item of navigationItems">
+          <a class="nav-link" [href]="item.link" (click)="scrollToSection($event, item.link)">
+            {{ item.label }}
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero Section Component -->
+<section id="home" class="hero-section">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-8 hero-content text-white">
+        <div class="badge-custom" [@fadeInUp]>
+          <i class="bi bi-star-fill me-2"></i>{{ profileData.experience }}+ Years Angular Expert
+        </div>
+        <h1 class="hero-title" [@fadeInUp]>
+          {{ profileData.greeting }}<br>
+          <span class="text-warning">{{ profileData.name }}</span><br>
+          {{ profileData.title }}
+        </h1>
+        <p class="hero-subtitle" [@fadeInUp]>
+          {{ profileData.description }}
+        </p>
+        <div class="d-flex flex-wrap gap-3" [@fadeInUp]>
+          <a [href]="'#contact'" class="btn btn-light btn-custom" (click)="scrollToSection($event, '#contact')">
+            <i class="bi bi-envelope me-2"></i>Get In Touch
+          </a>
+          <a [href]="'#projects'" class="btn btn-outline-light btn-custom" (click)="scrollToSection($event, '#projects')">
+            <i class="bi bi-code-slash me-2"></i>View Projects
+          </a>
+          <a [href]="profileData.githubUrl" class="btn btn-outline-light btn-custom" target="_blank">
+            <i class="bi bi-github me-2"></i>GitHub
+          </a>
+        </div>
+        
+        <!-- Profile Stats -->
+        <div class="row mt-4">
+          <div class="col-4" *ngFor="let stat of profileStats">
+            <div class="text-center">
+              <h4 class="text-warning mb-0">{{ stat.value }}</h4>
+              <small>{{ stat.label }}</small>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 text-center">
+        <div class="position-relative" [@fadeInRight]>
+          <div class="bg-white rounded-circle p-4 shadow-lg d-inline-block hero-avatar">
+            <i class="bi bi-person-circle text-primary"></i>
+          </div>
+          <div class="profile-badge">
+            <img [src]="'https://komarev.com/ghpvc/?username=' + profileData.githubUsername + '&label=Profile%20views&color=0e75b6&style=flat'" 
+                 alt="Profile views" class="img-fluid">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- About Section Component -->
+<section id="about" class="section-padding bg-light">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 text-center mb-5">
+        <h2 class="section-title" [@fadeInUp]>About Me</h2>
+        <p class="lead text-muted">{{ aboutData.subtitle }}</p>
+      </div>
+    </div>
+    <div class="row align-items-center">
+      <div class="col-lg-6 mb-4">
+        <div class="card card-custom h-100" [@fadeInLeft]>
+          <div class="card-body p-4">
+            <div class="card-icon bg-primary mb-3">
+              <i class="bi bi-person-badge"></i>
+            </div>
+            <h4 class="mb-3">{{ aboutData.professionalTitle }}</h4>
+            <p class="text-muted">{{ aboutData.description }}</p>
+            
+            <!-- Current Focus -->
+            <div class="current-focus mt-4">
+              <h6 class="text-primary mb-2">Currently Working On:</h6>
+              <ul class="list-unstyled">
+                <li *ngFor="let project of currentProjects" class="mb-1">
+                  <i class="bi bi-arrow-right text-success me-2"></i>{{ project }}
+                </li>
+              </ul>
+            </div>
+            
+            <!-- Learning -->
+            <div class="learning mt-3">
+              <h6 class="text-info mb-2">Currently Learning:</h6>
+              <span class="tech-badge" *ngFor="let tech of currentlyLearning">{{ tech }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6 mb-4">
+        <div class="card card-custom h-100" [@fadeInRight]>
+          <div class="card-body p-4">
+            <div class="card-icon bg-success mb-3">
+              <i class="bi bi-geo-alt"></i>
+            </div>
+            <h4 class="mb-3">Contact Information</h4>
+            <ul class="list-unstyled">
+              <li class="mb-2" *ngFor="let contact of contactInfo">
+                <i [class]="contact.icon + ' text-primary me-2'"></i>
+                <ng-container [ngSwitch]="contact.type">
+                  <span *ngSwitchCase="'link'">
+                    <a [href]="contact.value" target="_blank" class="text-decoration-none">{{ contact.label }}</a>
+                  </span>
+                  <span *ngSwitchCase="'email'">
+                    <a [href]="'mailto:' + contact.value" class="text-decoration-none">{{ contact.value }}</a>
+                  </span>
+                  <span *ngSwitchDefault>{{ contact.value }}</span>
+                </ng-container>
+              </li>
+            </ul>
+            
+            <!-- GitHub Trophy -->
+            <div class="mt-4">
+              <img [src]="'https://github-profile-trophy.vercel.app/?username=' + profileData.githubUsername" 
+                   alt="GitHub Trophies" class="img-fluid">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Experience Section Component -->
+<section id="experience" class="section-padding">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 text-center mb-5">
+        <h2 class="section-title" [@fadeInUp]>Work Experience</h2>
+        <p class="lead text-muted">Journey through leading organizations</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="timeline">
+          <div class="timeline-item" 
+               *ngFor="let experience of experienceData; let i = index"
+               [@fadeInUp]="{ value: '', params: { delay: i * 200 + 'ms' } }">
+            <div class="timeline-content">
+              <div class="d-flex justify-content-between align-items-start mb-3">
+                <div>
+                  <h4 class="mb-1">{{ experience.position }}</h4>
+                  <h6 class="text-primary mb-2">{{ experience.company }}</h6>
+                </div>
+                <span [class]="'badge ' + experience.badgeClass">{{ experience.duration }}</span>
+              </div>
+              
+              <div *ngFor="let project of experience.projects">
+                <h6 class="text-info mb-2">{{ project.name }}</h6>
+                <ul class="list-unstyled">
+                  <li *ngFor="let achievement of project.achievements">
+                    <i class="bi bi-check-circle text-success me-2"></i>{{ achievement }}
+                  </li>
+                </ul>
+              </div>
+              
+              <div class="mt-3">
+                <span class="tech-badge" *ngFor="let tech of experience.technologies">{{ tech }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Skills Section Component -->
+<section id="skills" class="section-padding bg-light">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 text-center mb-5">
+        <h2 class="section-title" [@fadeInUp]>Technical Skills</h2>
+        <p class="lead text-muted">Expertise across modern web technologies</p>
+      </div>
+    </div>
+    <div class="row g-4">
+      <div class="col-lg-3 col-md-6" 
+           *ngFor="let skill of skillsData; let i = index"
+           [@fadeInUp]="{ value: '', params: { delay: i * 100 + 'ms' } }">
+        <div class="skill-item">
+          <div [class]="'skill-icon ' + skill.bgClass">{{ skill.icon }}</div>
+          <h5>{{ skill.name }}</h5>
+          <p class="text-muted small">{{ skill.description }}</p>
+          <div class="skill-level">
+            <div class="progress">
+              <div class="progress-bar" 
+                   [style.width.%]="skill.level"
+                   [class]="'bg-' + skill.color">
+              </div>
+            </div>
+            <small class="text-muted">{{ skill.level }}% Proficiency</small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Projects Section Component -->
+<section id="projects" class="section-padding">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 text-center mb-5">
+        <h2 class="section-title" [@fadeInUp]>Featured Projects</h2>
+        <p class="lead text-muted">Personal projects showcasing my expertise</p>
+      </div>
+    </div>
+    <div class="row g-4">
+      <div class="col-lg-6 col-md-6" 
+           *ngFor="let project of projectsData; let i = index"
+           [@fadeInUp]="{ value: '', params: { delay: i * 200 + 'ms' } }">
+        <div class="card project-card">
+          <div class="project-image" [style.background]="project.gradient">
+            <i [class]="project.icon"></i>
+          </div>
+          <div class="card-body p-4">
+            <h4 class="mb-3">{{ project.name }}</h4>
+            <p class="text-muted mb-3">{{ project.description }}</p>
+            <div class="mb-3">
+              <span class="tech-badge" *ngFor="let tech of project.technologies">{{ tech }}</span>
+            </div>
+            <div class="d-flex gap-2">
+              <a [href]="project.liveUrl" class="btn btn-primary btn-sm" target="_blank" *ngIf="project.liveUrl">
+                <i class="bi bi-eye me-1"></i>Live Demo
+              </a>
+              <a [href]="project.githubUrl" class="btn btn-outline-primary btn-sm" target="_blank">
+                <i class="bi bi-github me-1"></i>GitHub
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="text-center mt-5">
+      <a [href]="profileData.githubUrl" class="btn btn-outline-primary btn-lg" target="_blank">
+        <i class="bi bi-github me-2"></i>View All Projects on GitHub
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- GitHub Stats Section -->
+<section class="section-padding bg-light">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 text-center mb-5">
+        <h2 class="section-title" [@fadeInUp]>GitHub Statistics</h2>
+        <p class="lead text-muted">My coding journey in numbers</p>
+      </div>
+    </div>
+    <div class="row g-4">
+      <div class="col-lg-4 col-md-6" [@fadeInUp]>
+        <div class="card card-custom text-center">
+          <div class="card-body">
+            <h5>Top Languages</h5>
+            <img [src]="'https://github-readme-stats.vercel.app/api/top-langs?username=' + profileData.githubUsername + '&show_icons=true&locale=en&layout=compact&theme=light'" 
+                 alt="Top Languages" class="img-fluid">
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-6" [@fadeInUp]>
+        <div class="card card-custom text-center">
+          <div class="card-body">
+            <h5>GitHub Stats</h5>
+            <img [src]="'https://github-readme-stats.vercel.app/api?username=' + profileData.githubUsername + '&show_icons=true&locale=en&theme=light'" 
+                 alt="GitHub Stats" class="img-fluid">
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-12" [@fadeInUp]>
+        <div class="card card-custom text-center">
+          <div class="card-body">
+            <h5>GitHub Streak</h5>
+            <img [src]="'https://github-readme-streak-stats.herokuapp.com/?user=' + profileData.githubUsername + '&theme=light'" 
+                 alt="GitHub Streak" class="img-fluid">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Contact Section Component -->
+<section id="contact" class="section-padding contact-section">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 text-center mb-5">
+        <h2 class="section-title text-white" [@fadeInUp]>Let's Work Together</h2>
+        <p class="lead">Ready to start your next project? Let's discuss how I can help.</p>
+      </div>
+    </div>
+    <div class="row g-4">
+      <div class="col-lg-3 col-md-6" 
+           *ngFor="let contact of contactMethods; let i = index"
+           [@fadeInUp]="{ value: '', params: { delay: i * 100 + 'ms' } }">
+        <div class="contact-item">
+          <div class="contact-icon">
+            <i [class]="contact.icon"></i>
+          </div>
+          <h5>{{ contact.title }}</h5>
+          <p class="mb-0" *ngIf="contact.type === 'link'">
+            <a [href]="contact.url" class="text-white text-decoration-none" target="_blank">
+              {{ contact.value }}
+            </a>
+          </p>
+          <p class="mb-0" *ngIf="contact.type === 'text'">{{ contact.value }}</p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="text-center mt-5">
+      <a [href]="'mailto:' + profileData.email" class="btn btn-light btn-lg btn-custom">
+        <i class="bi bi-envelope me-2"></i>Send me an Email
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Footer Component -->
+<footer class="footer">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8">
+        <h5 class="mb-3">AK Dev Studio</h5>
+        <p class="text-light mb-3">{{ footerData.description }}</p>
+        <div class="d-flex gap-3">
+          <a *ngFor="let social of socialLinks" 
+             [href]="social.url" class="text-light" target="_blank">
+            <i [class]="social.icon + ' fs-4'"></i>
+          </a>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <h6 class="mb-3">Quick Links</h6>
+        <ul class="list-unstyled">
+          <li *ngFor="let link of quickLinks">
+            <a [href]="link.url" class="text-light text-decoration-none" 
+               (click)="scrollToSection($event, link.url)">{{ link.label }}</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <hr class="my-4 bg-light">
+    <div class="text-center">
+      <p class="mb-0 text-light">{{ footerData.copyright }}</p>
+    </div>
+  </div>
+</footer>
+
+<!-- Scroll to Top Button -->
+<button class="btn btn-primary btn-scroll-top" 
+        *ngIf="showScrollButton" 
+        (click)="scrollToTop()"
+        [@fadeInOut]>
+  <i class="bi bi-arrow-up"></i>
+</button>
