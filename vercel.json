@@ -1,7 +1,6 @@
 {
   "version": 2,
-  "buildCommand": "npm run build",
-  "outputDirectory": "dist/ak-dev-studio",
+  "outputDirectory": "dist/ak-dev-studio/browser",
   "rewrites": [
     {
       "source": "/moviepicker/:path*",
