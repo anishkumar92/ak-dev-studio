@@ -1,18 +1,27 @@
 import { Component } from '@angular/core';
+import { HeaderComponent } from './header/header.component';
+import { FooterComponent } from './footer/footer.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [LandingPageComponent],
+  imports: [HeaderComponent, FooterComponent, LandingPageComponent],
   template: `
-    <!-- Standalone Landing Page Component -->
-    <app-landing-page></app-landing-page>
+    <app-header></app-header>
+    <main class="main-content">
+      <app-landing-page></app-landing-page>
+    </main>
+    <app-footer></app-footer>
   `,
   styles: [`
     :host {
       display: block;
       min-height: 100vh;
+    }
+    
+    .main-content {
+      padding-top: 80px; /* Account for fixed header */
     }
   `]
 })

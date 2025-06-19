@@ -1,9 +1,21 @@
 {
   "version": 2,
-   "rewrites": [
+  "rewrites": [
     {
       "source": "/moviepicker/:path*",
       "destination": "https://movie-picker-chi.vercel.app/:path*"
+    },
+    {
+      "source": "/npscalculator/:path*", 
+      "destination": "https://nps-calculator.vercel.app/:path*"
+    },
+    {
+      "source": "/joketeller/:path*",
+      "destination": "https://anishkumar92.github.io/jokeTeller/:path*"
+    },
+    {
+      "source": "/quotegenerator/:path*",
+      "destination": "https://anishkumar92.github.io/quote-generator/:path*"
     }
   ]
 }
